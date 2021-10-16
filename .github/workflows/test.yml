@@ -1,0 +1,32 @@
+name: Test
+on: [push, pull_request]
+jobs:
+  gsv:
+    name: Get Salt versions
+    runs-on: ubuntu-latest
+    outputs:
+      salt-versions: ${{ steps.get-salt-versions.outputs.salt-versions }}
+    steps:
+      - id: get-salt-versions
+        uses: dafyddj/get-salt-versions@v1
+  test:
+    name: Test
+    needs: gsv
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        version: ${{ fromJSON(needs.gsv.outputs.salt-versions) }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run this action
+        uses: ./
+        with:
+          version: ${{ matrix.version }}
+      - name: Verify Salt version installed
+        env:
+          SALT_VER_EXPECTED: ${{ matrix.version }}
+        run: |
+          $SALT_VER_INSTALLED = (-split $(salt-call --version))[1]
+          if ($SALT_VER_INSTALLED -ne $env:SALT_VER_EXPECTED) {
+              exit 1
+          }
