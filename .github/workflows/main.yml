@@ -1,0 +1,69 @@
+---
+name: Main
+on: [push, pull_request]
+
+jobs:
+  pre-commit:
+    name: Run `pre-commit`
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - uses: pre-commit/action@v2.0.3
+  gsv:
+    name: Get Salt versions
+    runs-on: ubuntu-latest
+    outputs:
+      salt-versions: ${{ steps.get-salt-versions.outputs.salt-versions }}
+    steps:
+      - id: get-salt-versions
+        uses: dafyddj/get-salt-versions@v1
+  test:
+    name: Test this action
+    needs: gsv
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        version: ${{ fromJSON(needs.gsv.outputs.salt-versions) }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run this action
+        uses: ./
+        with:
+          version: ${{ matrix.version }}
+      - name: Verify Salt version installed
+        env:
+          SALT_VER_EXPECTED: ${{ matrix.version }}
+        run: |
+          $SALT_VER_INSTALLED = (-split $(salt-call --version))[1]
+          if ($SALT_VER_INSTALLED -ne $env:SALT_VER_EXPECTED) {
+              exit 1
+          }
+  release:
+    name: Release
+    needs:
+      - pre-commit
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run `semantic-release`
+        uses: codfish/semantic-release-action@v1
+        id: sem-rel
+        with:
+          branches: |
+            ["main"]
+          plugins: |
+            [ "@semantic-release/commit-analyzer",
+              "@semantic-release/release-notes-generator",
+              "@semantic-release/github"
+            ]
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update branch for major version
+        if: steps.sem-rel.outputs.new-release-published == 'true'
+        run: git push
+             https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+             HEAD:refs/heads/v${{steps.sem-rel.outputs.release-major}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
