@@ -14,4 +14,9 @@ runs:
       run: |
         Invoke-WebRequest -Uri https://winbootstrap.saltproject.io -OutFile bootstrap-salt.ps1
         & .\bootstrap-salt.ps1 -runservice false -version ${{ inputs.version }}
-        echo "C:\salt" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        if ([version]"${{ inputs.version }}.0" -ge [version]"3004.0") {
+            $saltPath = "C:\Program Files\Salt Project\Salt"
+        } else {
+            $saltPath = "C:\salt"
+        }
+        $saltPath | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append

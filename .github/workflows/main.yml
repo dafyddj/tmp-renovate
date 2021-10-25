@@ -17,7 +17,7 @@ jobs:
       salt-versions: ${{ steps.get-salt-versions.outputs.salt-versions }}
     steps:
       - id: get-salt-versions
-        uses: dafyddj/get-salt-versions@v1
+        uses: dafyddj/get-salt-versions@v2
   test:
     name: Test this action
     needs: gsv
