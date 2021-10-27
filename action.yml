@@ -6,17 +6,44 @@ inputs:
     description: Version of Salt to install
     required: false
     default: latest
+  file-client:
+    description: Set `file_client` parameter
+    required: false
+    default: local
 runs:
   using: composite
   steps:
-    - shell: pwsh
+    - name: Set `file_client`
+      shell: bash
       working-directory: ${{ runner.temp }}
       run: |
-        Invoke-WebRequest -Uri https://winbootstrap.saltproject.io -OutFile bootstrap-salt.ps1
-        & .\bootstrap-salt.ps1 -runservice false -version ${{ inputs.version }}
+        echo "file_client: ${{ inputs.file-client }}" >config
+    - name: Run Salt installer
+      shell: pwsh
+      working-directory: ${{ runner.temp }}
+      run: |
+        Invoke-WebRequest `
+          -Uri https://repo.saltproject.io/windows/Salt-Minion-${{ inputs.version }}-Py3-AMD64.msi `
+          -OutFile salt.msi
+        # `msiexec` returns to the command line immediately after launch
+        # so we MUST `-Wait` to ensure install finishes completely
+        Start-Process -Wait msiexec -ArgumentList `
+          /package,salt.msi,/quiet,/norestart,`
+          CONFIG_TYPE=Custom,CUSTOM_CONFIG=config
         if ([version]"${{ inputs.version }}.0" -ge [version]"3004.0") {
             $saltPath = "C:\Program Files\Salt Project\Salt"
         } else {
             $saltPath = "C:\salt"
         }
         $saltPath | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+    - name: Test Salt installation
+      shell: pwsh
+      run: |
+        $process = Start-Process -PassThru -NoNewWindow salt-call -ArgumentList test.ping
+        $handle = $process.Handle # hold on to Exitcode https://stackoverflow.com/a/23797762
+        if ($process.WaitForExit(12000)) {
+            exit $process.ExitCode
+        } else {
+            $process.Kill($true)
+            exit 1
+        }
