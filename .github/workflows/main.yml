@@ -24,20 +24,31 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        version: ${{ fromJSON(needs.gsv.outputs.salt-versions) }}
+        salt-version: ${{ fromJSON(needs.gsv.outputs.salt-versions) }}
     steps:
       - uses: actions/checkout@v2
       - name: Run this action
         uses: ./
         with:
-          version: ${{ matrix.version }}
+          salt-version: ${{ matrix.salt-version }}
+          custom-config: |
+            test_key1: test_value1
+            test_key2: test_value2
       - name: Verify Salt version installed
         env:
-          SALT_VER_EXPECTED: ${{ matrix.version }}
+          SALT_VER_EXPECTED: ${{ matrix.salt-version }}
         run: |
           $SALT_VER_INSTALLED = (-split $(salt-call --version))[1]
           if ($SALT_VER_INSTALLED -ne $env:SALT_VER_EXPECTED) {
               exit 1
+          }
+      - name: Verify custom config
+        run: |
+          foreach ($i in 1..2) {
+              $value = salt-call config.get "test_key$i" --out newline_values_only
+              if ($value -ne "test_value$i") {
+                  exit 1
+              }
           }
   release:
     name: Release
