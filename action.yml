@@ -2,7 +2,7 @@ name: Setup Salt
 author: dafyddj
 description: Install and set up Salt on Windows
 inputs:
-  version:
+  salt-version:
     description: Version of Salt to install
     required: false
     default: latest
@@ -33,14 +33,14 @@ runs:
       working-directory: ${{ runner.temp }}
       run: |
         Invoke-WebRequest `
-          -Uri https://repo.saltproject.io/windows/Salt-Minion-${{ inputs.version }}-Py3-AMD64.msi `
+          -Uri https://repo.saltproject.io/windows/Salt-Minion-${{ inputs.salt-version }}-Py3-AMD64.msi `
           -OutFile salt.msi
         # `msiexec` returns to the command line immediately after launch
         # so we MUST `-Wait` to ensure install finishes completely
         Start-Process -Wait msiexec -ArgumentList `
           /package,salt.msi,/quiet,/norestart,`
           CONFIG_TYPE=Custom,CUSTOM_CONFIG=config
-        if ([version]"${{ inputs.version }}.0" -ge [version]"3004.0") {
+        if ([version]"${{ inputs.salt-version }}.0" -ge [version]"3004.0") {
             $saltPath = "C:\Program Files\Salt Project\Salt"
         } else {
             $saltPath = "C:\salt"
