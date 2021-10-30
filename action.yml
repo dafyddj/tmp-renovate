@@ -10,6 +10,9 @@ inputs:
     description: Set `file_client` parameter
     required: false
     default: local
+  custom-config:
+    description: Add a custom minion config
+    required: false
 runs:
   using: composite
   steps:
@@ -18,6 +21,13 @@ runs:
       working-directory: ${{ runner.temp }}
       run: |
         echo "file_client: ${{ inputs.file-client }}" >config
+    - name: Set custom config
+      shell: bash
+      working-directory: ${{ runner.temp }}
+      run: |
+        if [ -n "${{ inputs.custom-config }}" ]; then
+            echo -n "${{ inputs.custom-config }}" >>config
+        fi
     - name: Run Salt installer
       shell: pwsh
       working-directory: ${{ runner.temp }}
