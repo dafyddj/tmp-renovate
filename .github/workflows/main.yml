@@ -1,6 +1,10 @@
 ---
 name: Main
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: 14 15 * * *
 
 jobs:
   pre-commit:
@@ -23,6 +27,7 @@ jobs:
     needs: gsv
     runs-on: windows-latest
     strategy:
+      fail-fast: false
       matrix:
         salt-version: ${{ fromJSON(needs.gsv.outputs.salt-versions) }}
     steps:
