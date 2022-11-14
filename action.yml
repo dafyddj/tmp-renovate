@@ -33,13 +33,12 @@ runs:
       working-directory: ${{ runner.temp }}
       run: |
         Invoke-WebRequest `
-          -Uri https://repo.saltproject.io/windows/Salt-Minion-${{ inputs.salt-version }}-Py3-AMD64.msi `
-          -OutFile salt.msi
-        # `msiexec` returns to the command line immediately after launch
+          -Uri https://repo.saltproject.io/windows/Salt-Minion-${{ inputs.salt-version }}-Py3-AMD64-Setup.exe `
+          -OutFile salt.exe
+        # The installer returns to the command line immediately after launch
         # so we MUST `-Wait` to ensure install finishes completely
-        Start-Process -Wait msiexec -ArgumentList `
-          /package,salt.msi,/quiet,/norestart,`
-          CONFIG_TYPE=Custom,CUSTOM_CONFIG=config
+        Start-Process -Wait salt.exe -ArgumentList `
+          /S,/custom-config=config
         if ([version]"${{ inputs.salt-version }}.0" -ge [version]"3004.0") {
             $saltPath = "C:\Program Files\Salt Project\Salt"
         } else {
