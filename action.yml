@@ -45,14 +45,23 @@ runs:
             $saltPath = "C:\salt"
         }
         $saltPath | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+        # Enable embedded quotes on next invocation of `pwsh`
+        # Mainstreamed in `7.3.0`
+        if ($PSVersionTable.PSVersion -lt [version]"7.3.0") {
+            Enable-ExperimentalFeature PSNativeCommandArgumentPassing
+        }
     - name: Test Salt installation
       shell: pwsh
       run: |
-        $process = Start-Process -PassThru -NoNewWindow salt-call -ArgumentList test.ping
-        $handle = $process.Handle # hold on to Exitcode https://stackoverflow.com/a/23797762
-        if ($process.WaitForExit(12000)) {
-            exit $process.ExitCode
-        } else {
-            $process.Kill($true)
-            exit 1
+        function Test-LastExitCode {
+            param ([int]$lec)
+            if ($lec) {
+                Write-Host ("::error title=Test Salt installation::Native process returned exit code: $lec")
+                exit 1
+            }
         }
+        $pkgsJson = salt-call --out=json pkg.list_pkgs
+        Test-LastExitCode($LASTEXITCODE)
+        $pkgsJson | jq 'to_entries|map(.value|with_entries(if (.key|test("Salt Minion")) then ({key: .key, value: .value}) else empty end))'
+        Test-LastExitCode($LASTEXITCODE)
