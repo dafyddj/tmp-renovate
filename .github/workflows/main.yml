@@ -83,3 +83,8 @@ jobs:
              HEAD:refs/heads/v${{steps.sem-rel.outputs.release-major}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update Healthchecks.io
+        if: github.ref == 'refs/heads/main'
+        run: curl -fsS -m 10 --retry 5 -o /dev/null https://hc-ping.com/${HC_UUID}
+        env:
+          HC_UUID: ${{ secrets.HC_UUID }}
