@@ -44,7 +44,7 @@ runs:
         # so we MUST `-Wait` to ensure install finishes completely
         Start-Process -Wait salt.exe -ArgumentList `
           /S,/custom-config=config
-        if ([version]"${{ inputs.salt-version }}.0" -ge [version]"3004.0") {
+        if ([version]"${{ inputs.salt-version }}" -ge [version]"3004.0") {
             $saltPath = "C:\Program Files\Salt Project\Salt"
         } else {
             $saltPath = "C:\salt"
