@@ -32,8 +32,13 @@ runs:
       shell: pwsh
       working-directory: ${{ runner.temp }}
       run: |
+        if ([version]"${{ inputs.salt-version }}" -ge [version]"3006.0") {
+            $repoDir = "salt/py3/windows/minor/${{ inputs.salt-version }}"
+        } else {
+            $repoDir = "windows"
+        }
         Invoke-WebRequest `
-          -Uri https://repo.saltproject.io/windows/Salt-Minion-${{ inputs.salt-version }}-Py3-AMD64-Setup.exe `
+          -Uri https://repo.saltproject.io/${repoDir}/Salt-Minion-${{ inputs.salt-version }}-Py3-AMD64-Setup.exe `
           -OutFile salt.exe
         # The installer returns to the command line immediately after launch
         # so we MUST `-Wait` to ensure install finishes completely
