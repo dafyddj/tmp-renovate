@@ -4,5 +4,8 @@
     "config:recommended",
     "docker:pinDigests",
     ":semanticPrefixFix"
+  ],
+  "excludePaths": [
+    ".github/workflows/*"
   ]
 }
