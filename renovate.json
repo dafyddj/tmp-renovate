@@ -5,7 +5,7 @@
     "docker:pinDigests",
     ":semanticPrefixFix"
   ],
-  "excludePaths": [
+  "ignorePaths": [
     ".github/workflows/*"
   ]
 }
