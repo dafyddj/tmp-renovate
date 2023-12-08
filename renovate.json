@@ -7,5 +7,13 @@
   ],
   "ignorePaths": [
     ".github/workflows/*"
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["python"],
+      "matchUpdateTypes": ["major", "minor"],
+      "enabled": false
+    }
   ]
 }
