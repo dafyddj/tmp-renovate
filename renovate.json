@@ -1,12 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": [
+    "dockerfile"
+  ],
   "extends": [
     "config:recommended",
     "docker:pinDigests",
     ":semanticCommitTypeAll(fix)"
-  ],
-  "ignorePaths": [
-    ".github/workflows/*"
   ],
   "packageRules": [
     {
