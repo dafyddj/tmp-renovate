@@ -23,8 +23,6 @@ jobs:
     outputs:
       new-release-published: ${{ steps.sem-rel.outputs.new-release-published }}
       release-version: ${{ steps.sem-rel.outputs.release-version }}
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: codfish/semantic-release-action@v2
@@ -34,8 +32,6 @@ jobs:
             ["main"]
           plugins: |
             [ "@semantic-release/commit-analyzer" ]
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   build-images:
     name: Run workflow
     uses: dafyddj/workflow-docker-build/.github/workflows/build.yml@v2
