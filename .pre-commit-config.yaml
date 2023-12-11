@@ -22,7 +22,7 @@ repos:
         name: Check Renovate config with check-jsonschema
         args: ["--verbose"]
   - repo: https://github.com/rubocop-hq/rubocop
-    rev: v1.57.0
+    rev: v1.59.0
     hooks:
       - id: rubocop
         name: Check Ruby files with rubocop
