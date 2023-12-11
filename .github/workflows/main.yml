@@ -30,6 +30,7 @@ jobs:
         with:
           branches: |
             ["main"]
+          extends: no-release.js
           plugins: |
             [ "@semantic-release/commit-analyzer" ]
   build-images:
