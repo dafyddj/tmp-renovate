@@ -33,7 +33,7 @@ jobs:
         with:
           branches: |
             ["main"]
-          extends: '@dafyddj/tmp-npm'
+          extends: 'tmp-npm'
           plugins: |
             [ "@semantic-release/commit-analyzer" ]
         env:
