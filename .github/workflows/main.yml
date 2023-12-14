@@ -23,8 +23,6 @@ jobs:
     outputs:
       new-release-published: ${{ steps.sem-rel.outputs.new-release-published }}
       release-version: ${{ steps.sem-rel.outputs.release-version }}
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: codfish/semantic-release-action@v3
