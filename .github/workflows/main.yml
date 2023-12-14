@@ -36,8 +36,6 @@ jobs:
           extends: 'tmp-npm'
           plugins: |
             [ "@semantic-release/commit-analyzer" ]
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   build-images:
     name: Run workflow
     uses: dafyddj/workflow-docker-build/.github/workflows/build.yml@v2
