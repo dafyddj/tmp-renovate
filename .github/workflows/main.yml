@@ -31,6 +31,7 @@ jobs:
         with:
           branches: |
             ["main"]
+          dry-run: true
           extends: tmp-npm
           plugins: |
             [ "@semantic-release/commit-analyzer" ]
