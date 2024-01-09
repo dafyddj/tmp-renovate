@@ -7,8 +7,7 @@ filename_convention_scheme:standard
 # Expanded name to use for application
 full_name:Copier Test
 
-[collate_file]
-*:*
+create_catalogues:true
 
 [run_dependent_text]
 stderr:Copying from template version
