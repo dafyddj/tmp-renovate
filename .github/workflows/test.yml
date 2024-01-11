@@ -42,4 +42,4 @@ jobs:
       image-namespace: ${{ github.repository_owner }}
       image-repo: ${{ needs.gri.outputs.repo-id }}
     secrets:
-      push-token: ${{ secrets.GITHUB_TOKEN }}
+      push-token: ${{ secrets.PUSH_TOKEN }}
