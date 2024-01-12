@@ -24,7 +24,7 @@ jobs:
       packages: write
     with:
       image-namespace: dafyddj
-      image-repo: ${{ needs.gri.outputs.repo-id }}
+      image-repo: base-docker-build
       labels: org.opencontainers.image.authors=AN Author <author@example.org>
     secrets:
       registry-password: ${{ secrets.GITHUB_TOKEN }}

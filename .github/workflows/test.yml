@@ -40,6 +40,6 @@ jobs:
       contents: write
     with:
       image-namespace: dafyddj
-      image-repo: ${{ needs.gri.outputs.repo-id }}
+      image-repo: base-docker-build
     secrets:
       push-token: ${{ secrets.PUSH_TOKEN }}
