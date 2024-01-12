@@ -39,7 +39,7 @@ jobs:
     permissions:
       contents: write
     with:
-      image-namespace: ${{ github.repository_owner }}
+      image-namespace: dafyddj
       image-repo: ${{ needs.gri.outputs.repo-id }}
     secrets:
       push-token: ${{ secrets.PUSH_TOKEN }}

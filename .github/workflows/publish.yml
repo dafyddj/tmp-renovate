@@ -23,7 +23,7 @@ jobs:
     permissions:
       packages: write
     with:
-      image-namespace: ${{ github.repository_owner }}
+      image-namespace: dafyddj
       image-repo: ${{ needs.gri.outputs.repo-id }}
       labels: org.opencontainers.image.authors=AN Author <author@example.org>
     secrets:
