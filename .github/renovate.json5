@@ -10,4 +10,7 @@
     "helpers:pinGitHubActionDigests",
     ":semanticCommitTypeAll(fix)",
   ],
+  "git-submodules": {
+    "enabled": true
+  }
 }
