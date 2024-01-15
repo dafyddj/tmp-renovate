@@ -14,20 +14,20 @@ jobs:
     name: Run `pre-commit`
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v4
+    - uses: actions/checkout@v4.1.1
+    - uses: actions/setup-python@v5.0.0
     - uses: pre-commit/action@v3.0.0
   test:
     name: Run approval tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.1
         with:
           fetch-depth: 0      # `copier` prefers full-history clones
           submodules: true
       - name: Debug on runner (When re-run with "Enable debug logging" checked)
         if: runner.debug
-        uses: mxschmitt/action-tmate@v3
+        uses: mxschmitt/action-tmate@v3.17
         with:
           detached: true
       - name: Install test dependencies
@@ -45,8 +45,8 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: codfish/semantic-release-action@v3
+      - uses: actions/checkout@v4.1.1
+      - uses: codfish/semantic-release-action@v3.0.0
         with:
           plugins: |
             [ "@semantic-release/commit-analyzer",
