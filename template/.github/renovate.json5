@@ -2,6 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "enabledManagers": [
     "custom.regex",
+    "git-submodules",
   ],
   "extends": [
     "config:recommended",
@@ -31,4 +32,7 @@
       "autoReplaceStringTemplate": "# __copier_update_needed {{{newValue}}}\n_src_path: gh:{{{depName}}}\n",
     },
   ],
+  "git-submodules": {
+    "enabled": true
+  },
 }
