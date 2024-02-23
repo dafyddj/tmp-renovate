@@ -6,19 +6,8 @@ on:
       - v*
 
 jobs:
-  gri:
-    name: Get Docker repo ID
-    runs-on: ubuntu-latest
-    outputs:
-      repo-id: ${{ steps.get-repo-id.outputs.repo-id }}
-    steps:
-      - id: get-repo-id
-        run: |
-          REPO_ID=$(echo ${{ github.repository }} | cut -d'/' -f2)
-          echo "repo-id=$REPO_ID" >> $GITHUB_OUTPUT
   run-publish-workflow:
     name: Run `publish` workflow
-    needs: gri
     uses: ./.github/workflows/libpublish.yml
     permissions:
       packages: write
