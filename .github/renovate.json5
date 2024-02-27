@@ -2,18 +2,14 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "enabledManagers": [
     "github-actions",
+    "pre-commit",
   ],
   "extends": [
     "config:recommended",
-    "helpers:pinGitHubActionDigests",
+    ":automergeStableNonMajor",
+    ":enablePreCommit",
     ":semanticCommitTypeAll(fix)",
-  ],
-  "packageRules": [
-    {
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchCurrentVersion": "!/^0/",
-      "automerge": true,
-    }
+    "helpers:pinGitHubActionDigests",
   ],
   "platformAutomerge": false,
 }
