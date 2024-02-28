@@ -35,6 +35,7 @@ jobs:
       release: false
     secrets:
       registry-password: ${{ matrix.registry == 'ghcr.io' && secrets.GITHUB_TOKEN || secrets.DOCKERHUB_TOKEN }}
+      registry-username: ${{ github.repository_owner }}
   run-test-workflow:
     name: Run `test` workflow
     needs: pre-commit
