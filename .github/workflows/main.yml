@@ -3,6 +3,10 @@ name: Test workflows
 on:
   pull_request:
   push:
+    branches:
+      - '**'
+  schedule:
+    - cron: 25 15 * * *
   workflow_dispatch:
 
 concurrency:
