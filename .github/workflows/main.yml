@@ -11,9 +11,9 @@ jobs:
     name: Run `pre-commit`
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
-    - uses: pre-commit/action@v3.0.0
+    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+    - uses: actions/setup-python@b64ffcaf5b410884ad320a9cfac8866006a109aa # v4.8.0
+    - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
   gsv:
     name: Get Salt versions
     runs-on: ubuntu-latest
@@ -21,7 +21,7 @@ jobs:
       salt-versions: ${{ steps.get-salt-versions.outputs.salt-versions }}
     steps:
       - id: get-salt-versions
-        uses: dafyddj/get-salt-versions@v2
+        uses: dafyddj/get-salt-versions@facbecc73d55759ff6940c48e22dfa52e6e74f63 # v2.13.0
   test:
     name: Test this action
     needs: gsv
@@ -31,7 +31,7 @@ jobs:
       matrix:
         salt-version: ${{ fromJSON(needs.gsv.outputs.salt-versions) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Run this action
         uses: ./
         with:
@@ -66,9 +66,9 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Run `semantic-release`
-        uses: codfish/semantic-release-action@v1
+        uses: codfish/semantic-release-action@cbd853afe12037afb1306caca9d6b1ab6a58cf2a # v1.10.0
         id: sem-rel
         with:
           branches: |
