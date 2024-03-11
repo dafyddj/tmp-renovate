@@ -14,7 +14,7 @@
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "GitHub Actions minor/patch",
-    }
-  ]
+    },
+  ],
   "platformAutomerge": false,
 }
