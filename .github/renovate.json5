@@ -9,5 +9,12 @@
     ":enablePreCommit",
     "helpers:pinGitHubActionDigestsToSemver",
   ],
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "GitHub Actions minor/patch",
+    }
+  ]
   "platformAutomerge": false,
 }
