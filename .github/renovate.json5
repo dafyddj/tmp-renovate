@@ -14,6 +14,13 @@
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "GitHub Actions minor/patch",
+      "automerge": true,
+    },
+    {
+      "matchManagers": ["pre-commit"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "pre-commit hook minor/patch",
+      "automerge": true,
     },
   ],
   "platformAutomerge": false,
