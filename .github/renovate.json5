@@ -1,0 +1,13 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": [
+    "github-actions",
+    "pre-commit",
+  ],
+  "extends": [
+    "config:recommended",
+    ":enablePreCommit",
+    "helpers:pinGitHubActionDigestsToSemver",
+  ],
+  "platformAutomerge": false,
+}
