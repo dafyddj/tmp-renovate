@@ -8,7 +8,7 @@ on:
 
 env:
   # renovate: datasource=github-tags depName=saltstack/salt extractVersion=^v(?<version>.*)$
-  SALT_VERSION: "3006.7"
+  SALT_VERSION: "3007.0"
 
 jobs:
   pre-commit:
