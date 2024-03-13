@@ -6,6 +6,10 @@ on:
   schedule:
     - cron: 14 15 * * *
 
+env:
+  # renovate: datasource=github-tags depName=saltstack/salt extractVersion=^v(?<version>.*)$
+  SALT_VERSION: "3006.7"
+
 jobs:
   pre-commit:
     name: Run `pre-commit`
@@ -29,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        salt-version: ${{ fromJSON(needs.gsv.outputs.salt-versions) }}
+        salt-version: ${{ env.SALT_VERSION }}
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Run this action
