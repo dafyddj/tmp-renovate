@@ -1,6 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "enabledManagers": [
+    "custom.regex",
     "github-actions",
     "pre-commit",
   ],
@@ -8,6 +9,7 @@
     "config:recommended",
     ":enablePreCommit",
     "helpers:pinGitHubActionDigestsToSemver",
+    "regexManagers:githubActionsVersions",
   ],
   "packageRules": [
     {
