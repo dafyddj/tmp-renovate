@@ -1,6 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "enabledManagers": [
+    "custom.regex",
     "github-actions",
     "pre-commit",
   ],
@@ -10,6 +11,7 @@
     ":enablePreCommit",
     ":semanticCommitTypeAll(fix)",
     "helpers:pinGitHubActionDigests",
+    "regexManagers:githubActionsVersions",
   ],
   "platformAutomerge": false,
 }
