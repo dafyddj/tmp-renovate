@@ -54,7 +54,8 @@ jobs:
       - name: Prepare Test Kitchen
         env:
           CHEF_LICENSE: accept-silent
-          KITCHEN_DOCKER_VERSION: 3.0.0
+          # renovate: datasource=rubygems depName=kitchen-docker
+          KITCHEN_DOCKER_VERSION: 2.15.0
         run: chef gem install kitchen-docker --version ${{ env.KITCHEN_DOCKER_VERSION }}
       - name: Run Test Kitchen
         run: kitchen test
