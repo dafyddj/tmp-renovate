@@ -1,7 +1,7 @@
 FROM node:21-bookworm-slim
 
 # renovate: datasource=npm depName=@commitlint/cli
-ARG CL_VERSION=19.1.0
+ARG CL_VERSION=19.2.1
 
 # Avoid unnecessary files when installing packages
 COPY files/dpkg-nodoc /etc/dpkg/dpkg.cfg.d/01_nodoc
