@@ -39,4 +39,10 @@
   "git-submodules": {
     "enabled": true
   },
+  "packageRules": [
+    {
+      "matchPackageNames": ["python/cpython"],
+      "separateMinorPatch": true,
+    }
+  ]
 }
