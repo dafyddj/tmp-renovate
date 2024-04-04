@@ -38,7 +38,6 @@ jobs:
       - name: Install test dependencies
         run: |
           pipx install copier
-          pipx inject copier 'pyyaml-include<2'
           pipx install texttest
       - name: Run `texttest`
         run: texttest -b
