@@ -45,6 +45,11 @@
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["python"],
+      "separateMinorPatch": true,
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["python"],
       "matchUpdateTypes": ["major", "minor"],
       "enabled": false,
     },
