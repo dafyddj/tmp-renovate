@@ -15,7 +15,7 @@
   ],
   "packageRules": [
     {
-      "matchPackageNames": ["python/cpython"],
+      "matchPackageNames": ["actions/python-versions"],
       "separateMinorPatch": true,
     },
     {

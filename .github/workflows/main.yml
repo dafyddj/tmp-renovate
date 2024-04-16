@@ -14,7 +14,7 @@ jobs:
     name: Run `pre-commit`
     runs-on: ubuntu-latest
     env:
-      # renovate: datasource=github-tags depName=python/cpython
+      # renovate: datasource=github-releases depName=actions/python-versions
       PYTHON_VERSION: 3.12.3
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
