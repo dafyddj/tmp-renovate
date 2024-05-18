@@ -1,0 +1,18 @@
+{
+  "enabledManagers": [
+    "custom.regex",
+  ],
+  "branchPrefix": "gha-renovate/",
+  "requireConfig": "ignored",
+  "extends": ["config:best-practices"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^.copier-answers.yml$"],
+      "matchStrings": [
+        "_commit: (?<currentValue>\\S+)\\n_src_path: gh:(?<depName>\\S+)\\n",
+      ],
+      "datasourceTemplate": "github-tags",
+    },
+  ],
+}
