@@ -1,0 +1,26 @@
+---
+name: Renovate
+on:
+  push:
+  workflow_dispatch:
+env:
+  RENOVATE_REPOSITORIES: ${{ github.repository }}
+  # https://docs.renovatebot.com/self-hosted-configuration/#dryrun
+  # Run renovate in dry-run mode if executed in branches other than main - prevents versions in PRs/branches from being updated
+  RENOVATE_DRY_RUN: "${{ inputs.dryRun || ( github.head_ref || github.ref_name ) != 'main' || false }}"
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v40.1.11
+        with:
+          configurationFile: my-renovate.json
+          token: ${{ secrets.RENOVATE_TOKEN }}
+        env:
+          LOG_LEVEL: 'debug'

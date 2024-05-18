@@ -1,0 +1,5 @@
+{
+  "branchPrefix": "gha-renovate/",
+  "requireConfig": "ignored",
+  "extends": ["config:best-practices"]
+}
