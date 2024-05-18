@@ -2,6 +2,7 @@
   "enabledManagers": [
     "custom.regex",
   ],
+  "allowedPostUpgradeCommands": ["echo Working",],
   "branchPrefix": "gha-renovate/",
   "requireConfig": "ignored",
   "extends": ["config:best-practices"],
@@ -15,4 +16,8 @@
       "datasourceTemplate": "github-tags",
     },
   ],
+  "postUpgradeTasks": {
+    "commands": ["echo Working",],
+    "executionMode": "update"
+  },
 }
