@@ -2,7 +2,7 @@
   "enabledManagers": [
     "custom.regex",
   ],
-  "allowedPostUpgradeCommands": ["echo Working",],
+  "allowedPostUpgradeCommands": ["copier update -A",],
   "branchPrefix": "gha-renovate/",
   "requireConfig": "ignored",
   "customManagers": [
@@ -12,11 +12,13 @@
       "matchStrings": [
         "_commit: (?<currentValue>\\S+)\\n_src_path: gh:(?<depName>\\S+)\\n",
       ],
+      "autoReplaceStringTemplate": "_commit: {{{currentValue}}} # __copier_update_pending {{{newValue}}}\n_src_path: gh:{{{depName}}}\n",
       "datasourceTemplate": "github-tags",
     },
   ],
   "postUpgradeTasks": {
-    "commands": ["echo Working",],
+    "commands": ["copier update -A",],
     "executionMode": "update"
   },
+  "semanticCommitScope": "1",
 }

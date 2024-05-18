@@ -21,6 +21,8 @@ jobs:
         uses: renovatebot/github-action@v40.1.11
         with:
           configurationFile: my-renovate.json5
+          docker-cmd-file: entrypoint.sh
+          docker-user: root
           token: ${{ secrets.RENOVATE_TOKEN }}
         env:
           LOG_LEVEL: 'debug'
