@@ -3,7 +3,7 @@
     "custom.regex",
   ],
   "allowedPostUpgradeCommands": ["copier update -A",],
-  "branchPrefix": "gha-renovate/",
+  "branchPrefix": "gha-renovate1/",
   "requireConfig": "ignored",
   "customManagers": [
     {
