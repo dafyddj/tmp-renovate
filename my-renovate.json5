@@ -5,7 +5,6 @@
   "allowedPostUpgradeCommands": ["echo Working",],
   "branchPrefix": "gha-renovate/",
   "requireConfig": "ignored",
-  "extends": ["config:best-practices"],
   "customManagers": [
     {
       "customType": "regex",
