@@ -2,7 +2,10 @@
   "enabledManagers": [
     "custom.regex",
   ],
-  "allowedPostUpgradeCommands": ["copier update -A",],
+  "allowedPostUpgradeCommands": [
+    "git stash",
+    "copier update -A",
+  ],
   "branchPrefix": "gha-renovate1/",
   "requireConfig": "ignored",
   "customManagers": [
@@ -18,7 +21,10 @@
     },
   ],
   "postUpgradeTasks": {
-    "commands": ["copier update -A",],
+    "commands": [
+      "git stash",
+      "copier update -A",
+    ],
     "executionMode": "update"
   },
   "semanticCommitScope": "1",
