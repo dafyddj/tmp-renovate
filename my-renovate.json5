@@ -6,8 +6,9 @@
     "git stash",
     "copier update -A",
   ],
-  "branchPrefix": "gha-renovate1/",
+  "branchPrefix": "gha-renovate2/",
   "requireConfig": "ignored",
+  "semanticCommitScope": "2",
   "customManagers": [
     {
       "customType": "regex",
@@ -27,5 +28,4 @@
     ],
     "executionMode": "update"
   },
-  "semanticCommitScope": "1",
 }
