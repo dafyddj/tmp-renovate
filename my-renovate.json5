@@ -3,12 +3,12 @@
     "custom.regex",
   ],
   "allowedPostUpgradeCommands": [
-    "git stash",
-    "copier update -A",
+    "^git stash$",
+    "^copier update",
   ],
-  "branchPrefix": "gha-renovate2/",
+  "branchPrefix": "gha-renovate3/",
   "requireConfig": "ignored",
-  "semanticCommitScope": "2",
+  "semanticCommitScope": "3",
   "customManagers": [
     {
       "customType": "regex",
@@ -24,7 +24,7 @@
   "postUpgradeTasks": {
     "commands": [
       "git stash",
-      "copier update -A",
+      "copier update --skip-answered --vcs-ref {{{newVersion}}}",
     ],
     "executionMode": "update"
   },
