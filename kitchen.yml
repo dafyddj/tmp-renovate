@@ -17,7 +17,7 @@ verifier:
 platforms:
   - name: test
     driver:
-      image: techneg/ci-pre-commit:local-test
+      image: dafyddj/tmp-renovate:local-test
       platform: debian
 
 suites:

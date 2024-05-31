@@ -33,7 +33,7 @@ jobs:
     permissions:
       contents: write
     with:
-      image-namespace: techneg
-      image-repo: ci-pre-commit
+      image-namespace: dafyddj
+      image-repo: tmp-renovate
     secrets:
       push-token: ${{ secrets.PUSH_TOKEN }}
