@@ -7,6 +7,7 @@
     "pip_requirements",
   ],
   "extends": [
+    ":semanticPrefixChore",
     "config:recommended",
     "docker:pinDigests",
   ],
@@ -27,20 +28,26 @@
       "datasourceTemplate": "github-tags",
       "autoReplaceStringTemplate": "_commit: {{#if currentDigest}}{{{currentDigest}}}{{else}}{{{currentValue}}}{{/if}} # __copier_update_needed {{{newValue}}}\n_src_path: gh:{{{depName}}}\n",
     },
+    {
+      "customType": "regex",
+      "fileMatch": ["^\\.schedule-version$"],
+      "matchStrings": [
+        "(?<currentValue>\\S+)\\n"
+      ],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "dafyddj/tmp-renovate",
+    },
   ],
   "git-submodules": {
     "enabled": true
   },
   "packageRules": [
     {
-      "matchManagers": [
-        "dockerfile",
-        "pip_requirements",
-      ],
+      "matchFiles": [".schedule-version"],
       "extends": [
         ":semanticPrefixFix",
-        "schedule:weekends",
       ],
+      "minimumReleaseAge": 1,
     },
     {
       "matchDatasources": ["docker"],
