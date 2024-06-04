@@ -61,5 +61,5 @@
       "groupName": "pre-commit dependencies",
     },
   ],
-  "platformAutomerge": false,
+  "platformAutomerge": true,
 }
