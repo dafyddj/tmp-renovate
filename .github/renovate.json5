@@ -49,6 +49,7 @@
       ],
       "minimumReleaseAge": "1 day",
       "automerge": true,
+      "platformAutomerge": false,
     },
     {
       "matchDatasources": ["docker"],
