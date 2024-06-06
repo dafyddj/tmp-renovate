@@ -48,8 +48,6 @@
         ":semanticPrefixFix",
       ],
       "minimumReleaseAge": "1 day",
-      "automerge": true,
-      "platformAutomerge": false,
     },
     {
       "matchDatasources": ["docker"],
@@ -62,5 +60,6 @@
       "groupName": "pre-commit dependencies",
     },
   ],
+  "automerge": true,
   "platformAutomerge": true,
 }
