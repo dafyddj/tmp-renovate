@@ -1,4 +1,4 @@
-{%- load_yaml as versions %}
+{% load_yaml as versions -%}
 - 1.5.0
 - 1.4.0
 - 1.3.0
@@ -14,7 +14,7 @@
 - 0.1.2
 - 0.1.1
 - 0.1.0
-{%- endload %}
+{% endload -%}
 
 graylog-collector-sidecar:
   {% for version in versions %}

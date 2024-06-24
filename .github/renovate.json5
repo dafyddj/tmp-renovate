@@ -35,6 +35,16 @@
       "depNameTemplate": "git-for-windows/git",
       "extractVersionTemplate": "v(?<version>.*).windows",
     },
+    {
+      "customType": "regex",
+      "fileMatch": ["^graylog-collector-sidecar.sls$"],
+      "matchStrings": [
+        "as versions -%}\\n- (?<currentValue>\\S+)\\n",
+      ],
+      "autoReplaceStringTemplate": "as versions -%}\n- {{{newValue}}}\n- {{{currentValue}}}\n",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "Graylog2/collector-sidecar",
+    },
   ],
   "git-submodules": {
     "enabled": true
