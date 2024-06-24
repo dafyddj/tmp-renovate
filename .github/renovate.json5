@@ -24,6 +24,17 @@
       "datasourceTemplate": "github-tags",
       "autoReplaceStringTemplate": "_commit: {{#if currentDigest}}{{{currentDigest}}}{{else}}{{{currentValue}}}{{/if}} # __copier_update_available {{{newValue}}}\n_src_path: gh:{{{depName}}}\n",
     },
+    {
+      "customType": "regex",
+      "fileMatch": ["^git.sls$"],
+      "matchStrings": [
+        "as versions -%}\\n- (?<currentValue>\\S+)\\n",
+      ],
+      "autoReplaceStringTemplate": "as versions -%}\n- {{{newValue}}}\n- {{{currentValue}}}\n",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "git-for-windows/git",
+      "extractVersionTemplate": "v(?<version>.*).windows",
+    },
   ],
   "git-submodules": {
     "enabled": true
