@@ -45,7 +45,25 @@
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "Graylog2/collector-sidecar",
     },
+    {
+      "customType": "regex",
+      "fileMatch": ["^firefox.sls$"],
+      "matchStrings": [
+        "as versions -%}\\n- (?<currentValue>\\S+)\\n",
+      ],
+      "autoReplaceStringTemplate": "as versions -%}\n- {{{newValue}}}\n- {{{currentValue}}}\n",
+      "datasourceTemplate": "custom.firefox",
+      "depNameTemplate": "firefox",
+    },
   ],
+  "customDatasources": {
+      "firefox": {
+        "defaultRegistryUrlTemplate": "https://product-details.mozilla.org/1.0/firefox_versions.json",
+        "transformTemplates": [
+          "{\"releases\":[{\"version\": $.LATEST_FIREFOX_VERSION}]\"}"
+        ],
+      },
+  },
   "git-submodules": {
     "enabled": true
   },
