@@ -75,13 +75,12 @@
     {
       "matchManagers": ["custom.regex"],
       "automerge": true,
-      "commitMessageSuffix": "available",
     },
     {
       "matchFileNames": ["**/*.sls"],
       "commitMessageTopic": "package {{depName}}",
       "extends": [
-        ":semanticPrefixFix",
+        ":semanticCommitType({{lowercase depName}})",
         ":semanticCommitScopeDisabled",
       ],
     },
