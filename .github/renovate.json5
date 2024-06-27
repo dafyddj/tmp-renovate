@@ -79,8 +79,10 @@
     },
     {
       "matchFileNames": ["**/*.sls"],
+      "commitMessageTopic": "package {{depName}}",
       "extends": [
         ":semanticPrefixFix",
+        ":semanticCommitScopeDisabled",
       ],
     },
   ],
