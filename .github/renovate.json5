@@ -60,7 +60,7 @@
       "firefox": {
         "defaultRegistryUrlTemplate": "https://product-details.mozilla.org/1.0/firefox_versions.json",
         "transformTemplates": [
-          "{\"releases\":[{\"version\": $.LATEST_FIREFOX_VERSION}]\"}"
+          "{\"releases\":[{\"version\": $.LATEST_FIREFOX_VERSION}]}"
         ],
       },
   },
@@ -76,6 +76,12 @@
       "matchManagers": ["custom.regex"],
       "automerge": true,
       "commitMessageSuffix": "available",
+    },
+    {
+      "matchFileNames": ["**/*.sls"],
+      "extends": [
+        ":semanticPrefixFix",
+      ],
     },
   ],
   "platformAutomerge": false,
