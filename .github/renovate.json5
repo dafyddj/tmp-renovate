@@ -47,13 +47,11 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^firefox.sls$"],
+      "fileMatch": ["\\.sls$"],
       "matchStrings": [
-        "as versions -%}\\n- (?<currentValue>\\S+)\\n",
+        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)\\s+- (?<currentValue>\\S+)\\s",
       ],
-      "autoReplaceStringTemplate": "as versions -%}\n- {{{newValue}}}\n- {{{currentValue}}}\n",
-      "datasourceTemplate": "custom.firefox",
-      "depNameTemplate": "firefox",
+      "autoReplaceStringTemplate": "# renovate: datasource={{{datasource}}} depName={{{depName}}}\n- {{{newValue}}}\n- {{{currentValue}}}\n",
     },
   ],
   "customDatasources": {
