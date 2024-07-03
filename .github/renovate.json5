@@ -78,7 +78,7 @@
       "matchFileNames": ["**/*.sls"],
       "commitMessageAction": "add",
       "commitMessageExtra": "{{prettyNewVersion}}",
-      "commitMessageTopic": "\"{{depName}}\" version",
+      "commitMessageTopic": "`{{depName}}` version",
       "extends": [
         ":semanticCommitScopeDisabled",
         ":semanticCommitType(update)",
