@@ -49,9 +49,9 @@
       "customType": "regex",
       "fileMatch": ["\\.sls$"],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>\\S+?)\\s+- [\"']?(?<currentValue>.+?)[\"']?\\s",
+        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>\\S+?)(?: packageName=(?<packageName>\\S+?))?\\s+- [\"']?(?<currentValue>.+?)[\"']?\\s",
       ],
-      "autoReplaceStringTemplate": "# renovate: datasource={{{datasource}}} depName={{{depName}}}\n- '{{{newValue}}}'\n- '{{{currentValue}}}'\n",
+      "autoReplaceStringTemplate": "# renovate: datasource={{{datasource}}} depName={{{depName}}}{{#if packageName}} packageName={{{packageName}}}{{/if}}\n- '{{{newValue}}}'\n- '{{{currentValue}}}'\n",
     },
   ],
   "customDatasources": {
@@ -78,7 +78,7 @@
       "matchFileNames": ["**/*.sls"],
       "commitMessageAction": "add",
       "commitMessageExtra": "{{prettyNewVersion}}",
-      "commitMessageTopic": "{{depName}} version",
+      "commitMessageTopic": "\"{{depName}}\" version",
       "extends": [
         ":semanticCommitScopeDisabled",
         ":semanticCommitType(update)",
