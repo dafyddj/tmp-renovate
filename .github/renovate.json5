@@ -1,49 +1,30 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "enabledManagers": [
-    "custom.regex",
-    "git-submodules",
-  ],
   "extends": [
     "config:recommended",
+    ":enablePreCommit",
+    ":semanticCommitScopeDisabled",
+    ":semanticPrefixChore",
+    "helpers:pinGitHubActionDigestsToSemver",
+    "regexManagers:githubActionsVersions",
   ],
-  // `copier` template updates
-  // There are two conditions that we need to account for
-  //   * a "clean" `.copier-answers.yml` file
-  //   * update needed but not yet applied (and further updates could appear in this condition)
-  // `renovate` needs to be able to match both conditions for PRs to work properly
-  // We make a hacky use of the otherwise unused field `currentDigest` to hold the current copier template version
+  "customDatasources": {
+      "firefox": {
+        "defaultRegistryUrlTemplate": "https://product-details.mozilla.org/1.0/firefox_versions.json",
+        "transformTemplates": [
+          "{\"releases\": [ {\"version\": $.LATEST_FIREFOX_VERSION } ] }"
+        ],
+      },
+  },
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^.copier-answers.yml$"],
+      "fileMatch": ["^firefox.sls$"],
       "matchStrings": [
-        "_commit: (?<currentValue>\\S+)\\n_src_path: gh:(?<depName>\\S+)\\n",
-        "_commit: (?<currentDigest>\\S+) # __copier_update_available (?<currentValue>\\S+)\\n_src_path: gh:(?<depName>\\S+)\\n",
+        "load_yaml as versions -%}\\n- (?<currentValue>\\S+)\\n",
       ],
-      "datasourceTemplate": "github-tags",
-      "autoReplaceStringTemplate": "_commit: {{#if currentDigest}}{{{currentDigest}}}{{else}}{{{currentValue}}}{{/if}} # __copier_update_available {{{newValue}}}\n_src_path: gh:{{{depName}}}\n",
-    },
-    {
-      "customType": "regex",
-      "fileMatch": ["^git.sls$"],
-      "matchStrings": [
-        "as versions -%}\\n- (?<currentValue>\\S+)\\n",
-      ],
-      "autoReplaceStringTemplate": "as versions -%}\n- {{{newValue}}}\n- {{{currentValue}}}\n",
-      "datasourceTemplate": "github-releases",
-      "depNameTemplate": "git-for-windows/git",
-      "extractVersionTemplate": "v(?<version>.*).windows",
-    },
-    {
-      "customType": "regex",
-      "fileMatch": ["^graylog-collector-sidecar.sls$"],
-      "matchStrings": [
-        "as versions -%}\\n- (?<currentValue>\\S+)\\n",
-      ],
-      "autoReplaceStringTemplate": "as versions -%}\n- {{{newValue}}}\n- {{{currentValue}}}\n",
-      "datasourceTemplate": "github-releases",
-      "depNameTemplate": "Graylog2/collector-sidecar",
+      "autoReplaceStringTemplate": "load_yaml as versions -%}\n- {{{newValue}}}\n- {{{currentValue}}}\n",
+      "datasourceTemplate": "custom.firefox",
+      "depNameTemplate": "firefox",
     },
     {
       "customType": "regex",
@@ -54,25 +35,10 @@
       "autoReplaceStringTemplate": "# renovate: datasource={{{datasource}}} depName={{{depName}}}{{#if packageName}} packageName={{{packageName}}}{{/if}}\n- '{{{newValue}}}'\n- '{{{currentValue}}}'\n",
     },
   ],
-  "customDatasources": {
-      "firefox": {
-        "defaultRegistryUrlTemplate": "https://product-details.mozilla.org/1.0/firefox_versions.json",
-        "transformTemplates": [
-          "{\"releases\":[{\"version\": $.LATEST_FIREFOX_VERSION}]}"
-        ],
-      },
-  },
-  "git-submodules": {
-    "enabled": true
-  },
   "packageRules": [
     {
-      "matchManagers": ["git-submodules"],
-      "automerge": true,
-    },
-    {
-      "matchManagers": ["custom.regex"],
-      "automerge": true,
+      "matchPackageNames": ["python/cpython"],
+      "separateMinorPatch": true,
     },
     {
       "matchFileNames": ["**/*.sls"],
@@ -85,5 +51,4 @@
       ],
     },
   ],
-  "platformAutomerge": false,
 }
