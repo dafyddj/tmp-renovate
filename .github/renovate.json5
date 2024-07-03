@@ -49,9 +49,9 @@
       "customType": "regex",
       "fileMatch": ["\\.sls$"],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)\\s+- (?<currentValue>\\S+)\\s",
+        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>\\S+?)\\s+- [\"']?(?<currentValue>.+?)[\"']?\\s",
       ],
-      "autoReplaceStringTemplate": "# renovate: datasource={{{datasource}}} depName={{{depName}}}\n- {{{newValue}}}\n- {{{currentValue}}}\n",
+      "autoReplaceStringTemplate": "# renovate: datasource={{{datasource}}} depName={{{depName}}}\n- '{{{newValue}}}'\n- '{{{currentValue}}}'\n",
     },
   ],
   "customDatasources": {
