@@ -76,11 +76,12 @@
     },
     {
       "matchFileNames": ["**/*.sls"],
-      "commitMessageExtra": "to {{prettyNewVersion}}",
-      "commitMessageTopic": "package {{depName}}",
+      "commitMessageAction": "add",
+      "commitMessageExtra": "{{prettyNewVersion}}",
+      "commitMessageTopic": "{{depName}} version",
       "extends": [
-        ":semanticPrefixFix",
         ":semanticCommitScopeDisabled",
+        ":semanticCommitType(update)",
       ],
     },
   ],
