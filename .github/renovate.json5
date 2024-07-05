@@ -41,6 +41,11 @@
       "separateMinorPatch": true,
     },
     {
+      "matchPackagePrefixes": ["saltstack"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false,
+    },
+    {
       "matchFileNames": ["**/*.sls"],
       "commitMessageAction": "add",
       "commitMessageExtra": "{{prettyNewVersion}}",
